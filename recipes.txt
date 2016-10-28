@@ -1,0 +1,44 @@
+Group Recipes
+4
+Freaky Fries
+serves 2
+potato 1 quantity
+wax 1 cups
+end
+Cut potato with dentures missing teeth.
+Melt wax
+Fry fries
+Stick fries in wax
+Slap nearest baker
+Marry some forest Creature
+end
+Cerial
+serves 1
+Fruit_loops 1 cups
+salt 0 to_taste
+Milk 14 cups
+end
+Marry door to door salesperson
+Spank nearest relative
+walk off a cliff
+end
+Stone Soup
+serves 4
+water 4 cups
+stone 2 quantity
+salt 0 to_taste
+end
+Stir the water vigorously.
+Pet the stones until really hard.
+Salt only when water comes to a boil.
+end
+Peanut Butter Sandwich
+serves 1
+bread 2 quantity
+peanut_butter 0	to_taste
+end
+Toast the bread to taste.
+Pre-smear the Peanut butter on wax paper.
+Place toast on wax paper (peanut butter side).
+Cross-cut the sandwich and make offering to Val.
+end
