@@ -17,6 +17,9 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <list>
+#include <map>
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -85,5 +88,43 @@ struct recipe
 	recipe *nextRecipe;	// Pointer tp the next recipe in the data stream
 };
 //*****************************************************************************
+
+
+
+//*****************************************************************************
+//								Classes
+//*****************************************************************************
+class Recipe;
+public class Ingredient
+{
+	Recipe * owner;
+	int id;
+	std::string title;
+	double amount;			// in cups
+	std::string unitType;	// unit type to display
+
+};
+public class Procedure
+{
+	Recipe * owner;
+	int id;
+};
+public class Recipe
+{
+	int id;
+	std::string title;
+	int servings;
+	std::vector<Ingredient> ingredients;
+	std::vector<Procedure> procedures;
+};
+
+extern std::list<Recipe> recipeList;
+extern std::map<std::string, double> conversions; // conversions from cup to other units
+
+void LoadConversions();
+
+
+
+
 #endif
 

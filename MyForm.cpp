@@ -8,6 +8,7 @@ using namespace System::Windows::Forms;
 void Main(array<String^>^ args)
 {
 	if (!loadRecipes()) return;
+	LoadConversions();
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

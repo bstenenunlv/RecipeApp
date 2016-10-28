@@ -216,3 +216,19 @@ bool loadRecipes(void)
 	return true;	//loaded recipes without error
 }
 
+
+std::list<Recipe> recipeList;
+std::map<std::string, double> conversions; // conversions from cup to other units
+
+void LoadConversions()
+{
+	// conversions from cup, all lowercase. should be of the form conversions["new unit"] = x * (1 cup)
+	conversions["cup"] = 1;					// 1 cup = 1 cup
+	conversions["tablespoon"] = 16;			// 1 cup = 16 tablespoons
+	conversions["teaspoon"] = 48;			// 1 cup = 48 teaspoons
+	conversions["liter"] = 0.236588;		// 1 cup = 0.236588 liter
+	conversions["milliliter"] = 236.588;	// 1 cup = 236.588 ml
+	conversions["pint"] = 0.5;				// 1 cup = 0.5 pint
+	conversions["quart"] = 0.25;			// 1 cup = 0.25 quart
+
+}
