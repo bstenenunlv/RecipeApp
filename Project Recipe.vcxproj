@@ -136,16 +136,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddRecipeForm.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Records.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddRecipeForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Records.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddRecipeForm.resx">
+      <DependentUpon>AddRecipeForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>

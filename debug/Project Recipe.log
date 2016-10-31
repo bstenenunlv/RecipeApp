@@ -1,2 +1,9 @@
-﻿  Project Recipe.vcxproj -> C:\Users\dickb\Dropbox\School\Computer Science Class\CS420\CS420_Assignment\Project Recipe\Debug\Project Recipe.exe
-  Project Recipe.vcxproj -> C:\Users\dickb\Dropbox\School\Computer Science Class\CS420\CS420_Assignment\Project Recipe\Debug\Project Recipe.pdb (Full PDB)
+﻿  AddRecipeForm.cpp
+c:\users\sentou\desktop\github\recipe\AddRecipeForm.h(24): warning C4477: 'sprintf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'System::String ^'
+  MyForm.cpp
+c:\users\sentou\desktop\github\recipe\AddRecipeForm.h(24): warning C4477: 'sprintf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'System::String ^'
+  Records.cpp
+c:\users\sentou\desktop\github\recipe\AddRecipeForm.h(24): warning C4477: 'sprintf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'System::String ^'
+  Generating Code...
+  Project Recipe.vcxproj -> C:\Users\Sentou\Desktop\GitHub\Recipe\Debug\Project Recipe.exe
+  Project Recipe.vcxproj -> C:\Users\Sentou\Desktop\GitHub\Recipe\Debug\Project Recipe.pdb (Full PDB)

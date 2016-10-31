@@ -35,7 +35,7 @@ end
 Peanut Butter Sandwich
 serves 1
 bread 2 quantity
-peanut_butter 0	to_taste
+peanut_butter 0 to_taste
 end
 Toast the bread to taste.
 Pre-smear the Peanut butter on wax paper.

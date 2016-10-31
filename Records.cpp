@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include "MyForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -132,6 +133,54 @@ void returnMemory(void)
 		firstRecipe = recipes;
 	}
 }
+bool saveRecipes(void)
+{
+	std::ofstream outfile;
+	outfile.open("recipes.txt");
+
+	outfile << "Group Recipes" << std::endl;
+	outfile << recipeQuantity << std::endl;
+
+	recipe * currentRecipe = firstRecipe;
+	for (int j = 0; j < recipeQuantity; ++j)
+	{
+		outfile << currentRecipe->title << std::endl;
+		outfile << "serves " << currentRecipe->servings << std::endl;
+
+		ingredients * currentItem = firstItem;
+
+		for (int i = 0; i < totalIngredients; ++i)
+		{
+			if (currentItem->recipeNumber == currentRecipe->recipeNumber)
+			{
+				std::string name = currentItem->ingredient;
+				std::replace(name.begin(), name.end(), ' ', '_'); // replace all 'x' to 'y'
+				outfile << name << " " << currentItem->amount << " " << currentItem->type << std::endl;
+			}
+			currentItem = currentItem->nextIngredient;
+		}
+		outfile << "end" << std::endl;
+
+		procedures * currentProcedure = firstTask;
+
+		for (int i = 0; i < totalprocedures; ++i)
+		{
+			if (currentProcedure->recipeNumber == currentRecipe->recipeNumber)
+			{
+				outfile << currentProcedure->procedure << std::endl;
+			}
+			currentProcedure = currentProcedure->nextProcedure;
+		}
+		outfile << "end" << std::endl;
+
+		currentRecipe = currentRecipe->nextRecipe;
+
+	}
+	
+
+	outfile.close();
+	return true;
+}
 //********************************************************************************************
 //									   File loader
 //********************************************************************************************
@@ -216,3 +265,46 @@ bool loadRecipes(void)
 	return true;	//loaded recipes without error
 }
 
+
+
+
+void AddNewRecipe(std::string name, int servings, std::vector<ingredients> ingredientList, std::vector<std::string> procedureList)
+{
+	recipe * r = new recipe();
+	int id = r->recipeNumber = lastRecipe->recipeNumber + 1;
+	lastRecipe->nextRecipe = r;
+	lastRecipe = r;
+
+
+	r->title = name;
+	r->ingredientCount = ingredientList.size();
+	r->ProcedureCount = procedureList.size();
+
+	r->servings = servings;
+	r->nextRecipe = NULL;
+	++recipeQuantity;
+
+
+	for (std::vector<ingredients>::iterator i = ingredientList.begin(); i != ingredientList.end(); ++i)
+	{
+		ingredients * thisIngredient = new ingredients;
+		thisIngredient->recipeNumber = id;
+		thisIngredient->amount = i->amount;
+		thisIngredient->ingredient = i->ingredient;
+		thisIngredient->type = i->type;
+		lastItem->nextIngredient = thisIngredient;
+		lastItem = thisIngredient;
+		++totalIngredients;
+	}
+	for (std::vector<std::string>::iterator i = procedureList.begin(); i != procedureList.end(); ++i)
+	{
+		procedures * thisProcedure = new procedures;
+		thisProcedure->recipeNumber = id;
+		thisProcedure->procedure = *i;
+		lastTask->nextProcedure = thisProcedure;
+		lastTask = thisProcedure;
+		++totalprocedures;
+		
+	}
+	
+}

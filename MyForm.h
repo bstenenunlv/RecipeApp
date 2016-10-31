@@ -5,8 +5,10 @@
 
 #include <String>
 #include "Records.h"
+#include "AddRecipeForm.h"
 
 namespace Project_Recipe {
+
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -21,7 +23,6 @@ namespace Project_Recipe {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
-
 		MyForm(void)
 		{
 			InitializeComponent();
@@ -65,6 +66,7 @@ namespace Project_Recipe {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Ingredient;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Amount;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Type;
+	private: System::Windows::Forms::Button^  button1;
 
 
 
@@ -101,6 +103,7 @@ namespace Project_Recipe {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->recipes))->BeginInit();
@@ -262,12 +265,23 @@ namespace Project_Recipe {
 			this->pictureBox1->TabStop = false;
 			this->pictureBox1->Click += gcnew System::EventHandler(this, &MyForm::pictureBox1_Click_2);
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(187, 15);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(116, 37);
+			this->button1->TabIndex = 9;
+			this->button1->Text = L"Add Recipe";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(1082, 451);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->textBox1);
@@ -370,7 +384,20 @@ private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Wi
 }
 private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 }
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	AddRecipeForm^ form = gcnew AddRecipeForm();
+	form->Show();
+	saveRecipes();
+
+}
+private: System::Void Reset(System::Object^  sender, System::EventArgs^  e) {
+	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
+}
+
 };
+
+
 };
 
 #endif

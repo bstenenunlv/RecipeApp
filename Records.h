@@ -12,11 +12,13 @@
 //
 // Output:   
 //*****************************************************************************
+#pragma once
 #ifndef records
 #define records
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -35,6 +37,7 @@ extern int	totalprocedures;
 //								Declarations
 //*****************************************************************************
 bool loadRecipes(void); //global function
+bool saveRecipes(void);
 void returnMemory(void); //delete all linked lists
 String^ recipeName(int);
 String^ recipeProcedure(int, int);
@@ -45,45 +48,51 @@ int		servings(int);
 double  recipeIngredientQuantity(int, int);
 String^ recipeIngredientTyp(int, int);
 
+
 //*****************************************************************************
 //								ingredients
 //*****************************************************************************
 struct ingredients
 {
-	int				recipeNumber;		// The recipe this ingredient belongs
-	std::string		ingredient;			// Food item
-	double			amount;				// Items in the natural number 
-										// category should be 
-										// printed with (int) conversion.
+	int				recipeNumber = 0;		// The recipe this ingredient belongs
+	std::string		ingredient = "";		// Food item
+	double			amount = 0;				// Items in the natural number 
+											// category should be 
+											// printed with (int) conversion.
 
-	std::string		type;				// Type of measure 1: quantity
-										// 2:cups, 3:tablespoons 4: teaspoons
-										// 5:sticks
+	std::string		type = "";				// Type of measure 1: quantity
+											// 2:cups, 3:tablespoons 4: teaspoons
+											// 5:sticks
 
-	ingredients		*nextIngredient;	// Pointer to next ingredient
+	ingredients		*nextIngredient = NULL;	// Pointer to next ingredient
 };
 //*****************************************************************************
 //							preceedures or steps
 //*****************************************************************************
 struct procedures
 {
-	int				recipeNumber;		// The recipe this proceedure belongs
-	std::string		procedure;		// Next cooking proceedure.
-	double			time;				// Estimated time for proceedure.
-	procedures		*nextProcedure;	// Pointer to next proceedure.
+	int				recipeNumber = 0;		// The recipe this proceedure belongs
+	std::string		procedure = "";			// Next cooking proceedure.
+	double			time = 0.0;				// Estimated time for proceedure.
+	procedures		*nextProcedure = NULL;	// Pointer to next proceedure.
 };
 //*****************************************************************************
 //								Recipes
 //*****************************************************************************
 struct recipe
 {
-	int	recipeNumber;		// Index number for recipe
-	std::string title;			// Recipe title
-	int servings;			// Number of people it serves.
-	int ingredientCount;	// Number of ingredients.
-	int ProcedureCount;		// Number of steps to cook recipe
-	recipe *nextRecipe;	// Pointer tp the next recipe in the data stream
+	int	recipeNumber = 0;		// Index number for recipe
+	std::string title = "";		// Recipe title
+	int servings = 0;			// Number of people it serves.
+	int ingredientCount = 0;	// Number of ingredients.
+	int ProcedureCount = 0;		// Number of steps to cook recipe
+	recipe *nextRecipe = NULL;	// Pointer tp the next recipe in the data stream
 };
 //*****************************************************************************
+
+
+
+void AddNewRecipe(std::string name, int servings, std::vector<ingredients> ingredientList, std::vector<std::string> procedureList);
+
 #endif
 
