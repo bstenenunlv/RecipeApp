@@ -353,7 +353,9 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
  //********************************************************************************************
  //							Clear the grids of data
  //********************************************************************************************
-	textBox1->Text = recipeName(e->RowIndex);
+	int row = e->RowIndex;
+	if (e->RowIndex > recipeQuantity - 1) row = recipeQuantity - 1;
+	textBox1->Text = recipeName(row);
 	this->numericUpDown1->Value = 0;
 	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = "";
 	for (int x = 0; x < 10; ++x)
@@ -369,14 +371,14 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
 	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
 
 
-	for (int x = 0; x < IngredientQty(e->RowIndex); ++x)
+	for (int x = 0; x < IngredientQty(row); ++x)
 	{
-		this->ingredients->Rows[x]->Cells[0]->Value = recipeIngredient(e->RowIndex, x);
-		this->ingredients->Rows[x]->Cells[1]->Value = recipeIngredientQuantity(e->RowIndex, x);
-		this->ingredients->Rows[x]->Cells[2]->Value = recipeIngredientTyp(e->RowIndex, x);
+		this->ingredients->Rows[x]->Cells[0]->Value = recipeIngredient(row, x);
+		this->ingredients->Rows[x]->Cells[1]->Value = recipeIngredientQuantity(row, x);
+		this->ingredients->Rows[x]->Cells[2]->Value = recipeIngredientTyp(row, x);
 	}
-	for (int x = 0; x < procedureQty(e->RowIndex); ++x) this->procedures->Rows[x]->Cells[0]->Value = recipeProcedure(e->RowIndex, x);
-	this->numericUpDown1->Value = servings(e->RowIndex);
+	for (int x = 0; x < procedureQty(row); ++x) this->procedures->Rows[x]->Cells[0]->Value = recipeProcedure(row, x);
+	this->numericUpDown1->Value = servings(row);
 }
 private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) 
 {
