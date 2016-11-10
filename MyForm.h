@@ -7,6 +7,7 @@
 #include "Records.h"
 #include "AddRecipeForm.h"
 
+
 namespace Project_Recipe {
 
 
@@ -365,9 +366,9 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
 		this->ingredients->Rows[x]->Cells[2]->Value = "";
 	}
 	for (int x = 0; x < 10; ++x) this->procedures->Rows[x]->Cells[0]->Value = "";
-	//********************************************************************************************
+	//***********************************************************************************************
 	//							load data
-	//********************************************************************************************
+	//***********************************************************************************************
 	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
 
 
@@ -379,26 +380,42 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
 	}
 	for (int x = 0; x < procedureQty(row); ++x) this->procedures->Rows[x]->Cells[0]->Value = recipeProcedure(row, x);
 	this->numericUpDown1->Value = servings(row);
+	serves = (float) servings(row);
+	for (int x = 0; x < 30; x++) amount[x] = 0;
 }
-private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) 
-{
+private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) {
 
 }
 private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	double ratio;
+	int newserve = 0;
+	int x = 0;
+	if (serves > 0)
+	{
+		ratio = (float) this->numericUpDown1->Value / serves;
+		for (int x = 0; ; x++)
+		{
+			if (this->ingredients->Rows[x]->Cells[1]->Value == "") break;
+			if (amount[x] == 0) amount[x] = Convert::ToDouble(this->ingredients->Rows[x]->Cells[1]->Value);
+			amount[x] = amount[x] * ratio;
+			this->ingredients->Rows[x]->Cells[1]->Value = (int)(amount[x]);
+
+		}
+		serves = (int) this->numericUpDown1->Value;
+	}
 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 
 	AddRecipeForm^ form = gcnew AddRecipeForm();
 	form->Show();
 	saveRecipes();
-
 }
 private: System::Void Reset(System::Object^  sender, System::EventArgs^  e) {
 	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
 }
 
 };
-
 
 };
 

@@ -33,6 +33,8 @@ using namespace System::Drawing;
 extern int	recipeQuantity;
 extern int	totalIngredients;
 extern int	totalprocedures;
+extern double serves;
+extern double amount[30];
 //*****************************************************************************
 //								Declarations
 //*****************************************************************************

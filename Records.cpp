@@ -16,6 +16,9 @@ typedef enum { quantity = 1, cups = 2, tablespoons = 3, teaspoons = 4, sticks = 
 int	recipeQuantity;		//number of recipes
 int	totalIngredients;	//number of total ingredients of all recipes
 int	totalprocedures;	//number of total procedures of all recipes
+double serves;			// number of servings
+double amount[30];		// allows modification of servings
+
 
 recipe *recipes, *firstRecipe, *lastRecipe;  //I use only the first two each
 ingredients *item, *firstItem, *lastItem;	 //  don't move first of any item
