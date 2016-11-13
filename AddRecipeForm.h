@@ -18,12 +18,6 @@ namespace Project_Recipe {
 	public ref class AddRecipeForm : public System::Windows::Forms::Form
 	{
 	public:
-		std::string systemStrToStdStr(System::String^ sStr)
-		{
-			char cstring[500] = { 0 };
-			sprintf_s(cstring, "%s", sStr);
-			return std::string(cstring);
-		}
 
 
 

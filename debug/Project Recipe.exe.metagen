@@ -19,7 +19,6 @@ Class Project_Recipe.AddRecipeForm: AutoLayout, AnsiClass, Class, Public, Before
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    systemStrToStdStr(basic_string<char\,std::char_traits<char>\,std::allocator<char> >*, String): PrivateScope, Public, HideBySig
     AddRecipe(): PrivateScope, Public, HideBySig
 Class Project_Recipe.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form

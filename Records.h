@@ -27,6 +27,10 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
+//forward declaration
+struct recipe;
+
+
 //********************************************************************************************
 //									global variables
 //********************************************************************************************
@@ -35,6 +39,9 @@ extern int	totalIngredients;
 extern int	totalprocedures;
 extern double serves;
 extern double amount[30];
+extern std::vector<recipe*> lastSearchedRecipeContainer;
+extern recipe* activeRecipe;
+
 //*****************************************************************************
 //								Declarations
 //*****************************************************************************
@@ -49,6 +56,8 @@ int		procedureQty(int);
 int		servings(int);
 double  recipeIngredientQuantity(int, int);
 String^ recipeIngredientTyp(int, int);
+std::vector<recipe*> findRecipesContaining(std::string);	// find recipes containing string in title
+std::string systemStrToStdStr(System::String^);				// convert system str -> std str
 
 
 //*****************************************************************************

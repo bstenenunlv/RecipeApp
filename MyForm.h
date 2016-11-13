@@ -62,12 +62,15 @@ namespace Project_Recipe {
 
 
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Recipe;
-	private: System::Windows::Forms::Label^  label2;
+
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Ingredient;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Amount;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Type;
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Label^  currentRecipe;
+	private: System::Windows::Forms::Label^  label2;
+
 
 
 
@@ -102,9 +105,10 @@ namespace Project_Recipe {
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->currentRecipe = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->recipes))->BeginInit();
@@ -127,12 +131,12 @@ namespace Project_Recipe {
 				this->Ingredient,
 					this->Amount, this->Type
 			});
-			this->ingredients->Location = System::Drawing::Point(337, 12);
+			this->ingredients->Location = System::Drawing::Point(337, 48);
 			this->ingredients->Name = L"ingredients";
 			this->ingredients->ReadOnly = true;
 			this->ingredients->RowHeadersWidth = 10;
 			this->ingredients->ScrollBars = System::Windows::Forms::ScrollBars::None;
-			this->ingredients->Size = System::Drawing::Size(343, 427);
+			this->ingredients->Size = System::Drawing::Size(343, 391);
 			this->ingredients->TabIndex = 0;
 			this->ingredients->TabStop = false;
 			this->ingredients->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::ingredients_CellContentClick);
@@ -169,12 +173,12 @@ namespace Project_Recipe {
 			this->procedures->CellBorderStyle = System::Windows::Forms::DataGridViewCellBorderStyle::Raised;
 			this->procedures->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->procedures->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Procedure });
-			this->procedures->Location = System::Drawing::Point(709, 12);
+			this->procedures->Location = System::Drawing::Point(709, 48);
 			this->procedures->Name = L"procedures";
 			this->procedures->ReadOnly = true;
 			this->procedures->RowHeadersWidth = 10;
 			this->procedures->ScrollBars = System::Windows::Forms::ScrollBars::None;
-			this->procedures->Size = System::Drawing::Size(361, 427);
+			this->procedures->Size = System::Drawing::Size(361, 391);
 			this->procedures->TabIndex = 1;
 			this->procedures->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::procedures_CellContentClick);
 			// 
@@ -239,20 +243,11 @@ namespace Project_Recipe {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(12, 69);
+			this->textBox1->Location = System::Drawing::Point(13, 69);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(263, 26);
 			this->textBox1->TabIndex = 6;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(97, 48);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(58, 18);
-			this->label2->TabIndex = 7;
-			this->label2->Text = L"Recipe";
-			this->label2->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -276,12 +271,32 @@ namespace Project_Recipe {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
+			// currentRecipe
+			// 
+			this->currentRecipe->AutoSize = true;
+			this->currentRecipe->Location = System::Drawing::Point(606, 14);
+			this->currentRecipe->Name = L"currentRecipe";
+			this->currentRecipe->Size = System::Drawing::Size(158, 18);
+			this->currentRecipe->TabIndex = 10;
+			this->currentRecipe->Text = L"Current Recipe: None";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(97, 48);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(58, 18);
+			this->label2->TabIndex = 7;
+			this->label2->Text = L"Search";
+			this->label2->Click += gcnew System::EventHandler(this, &MyForm::label2_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(1082, 451);
+			this->Controls->Add(this->currentRecipe);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->label2);
@@ -327,7 +342,8 @@ namespace Project_Recipe {
 		this->ingredients->Rows->Add(19);
 		this->procedures->Rows->Add(19);	//build emply lists
 		// show recipe list
-		for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);			
+		repopulateRecipeList();
+//		for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);			
 	}
 	private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
@@ -349,60 +365,97 @@ private: System::Void pictureBox1_Click_2(System::Object^  sender, System::Event
 {
 }
 
+private: void setActiveRecipe(recipe* r)
+{
+	repopulateRecipeList();
+	recipe* lastRecipe = activeRecipe;
+	activeRecipe = r;
+
+
+	if (lastRecipe != NULL) // there was a last
+	{
+
+		for (int x = 0; x < lastRecipe->ingredientCount; ++x)
+		{
+			this->ingredients->Rows[x]->Cells[0]->Value = "";
+			this->ingredients->Rows[x]->Cells[1]->Value = "";
+			this->ingredients->Rows[x]->Cells[2]->Value = "";
+		}
+		for (int i = 0; i < lastRecipe->ProcedureCount; ++i)
+		{
+			this->procedures->Rows[i]->Cells[0]->Value = "";
+		}
+	}
+	if (activeRecipe != NULL)	// there is a current recipe
+	{
+		for (int x = 0; x < activeRecipe->ingredientCount; ++x)
+		{
+			this->ingredients->Rows[x]->Cells[0]->Value = recipeIngredient(activeRecipe->recipeNumber, x);
+			this->ingredients->Rows[x]->Cells[1]->Value = recipeIngredientQuantity(activeRecipe->recipeNumber, x);
+			this->ingredients->Rows[x]->Cells[2]->Value = recipeIngredientTyp(activeRecipe->recipeNumber, x);
+		}
+		for (int x = 0; x < activeRecipe->ProcedureCount; ++x)
+			this->procedures->Rows[x]->Cells[0]->Value = recipeProcedure(activeRecipe->recipeNumber, x);
+
+		this->numericUpDown1->Value = activeRecipe->servings;
+		serves = (float)activeRecipe->servings;
+		for (int x = 0; x < 30; x++) amount[x] = 0;
+
+		
+	}
+	else
+	{
+		this->numericUpDown1->Value = 0;
+		serves = 0;
+		for (int x = 0; x < 30; x++) amount[x] = 0;
+	}
+}
+
 private: System::Void recipes_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
  //********************************************************************************************
  //							Clear the grids of data
  //********************************************************************************************
 	int row = e->RowIndex;
-	if (e->RowIndex > recipeQuantity - 1) row = recipeQuantity - 1;
-	textBox1->Text = recipeName(row);
-	this->numericUpDown1->Value = 0;
-	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = "";
-	for (int x = 0; x < 10; ++x)
+
+	if (row >= lastSearchedRecipeContainer.size()) // empty row
 	{
-		this->ingredients->Rows[x]->Cells[0]->Value = "";
-		this->ingredients->Rows[x]->Cells[1]->Value = "";
-		this->ingredients->Rows[x]->Cells[2]->Value = "";
+		setActiveRecipe(NULL);
+		currentRecipe->Text = "Current Recipe: None";
 	}
-	for (int x = 0; x < 10; ++x) this->procedures->Rows[x]->Cells[0]->Value = "";
-	//***********************************************************************************************
-	//							load data
-	//***********************************************************************************************
-	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
+	else 
+	{
+		setActiveRecipe(lastSearchedRecipeContainer[row]);
+		std::string text = "Current Recipe: " + activeRecipe->title;
+		currentRecipe->Text = gcnew System::String(text.c_str());
+	}
 
 
-	for (int x = 0; x < IngredientQty(row); ++x)
-	{
-		this->ingredients->Rows[x]->Cells[0]->Value = recipeIngredient(row, x);
-		this->ingredients->Rows[x]->Cells[1]->Value = recipeIngredientQuantity(row, x);
-		this->ingredients->Rows[x]->Cells[2]->Value = recipeIngredientTyp(row, x);
-	}
-	for (int x = 0; x < procedureQty(row); ++x) this->procedures->Rows[x]->Cells[0]->Value = recipeProcedure(row, x);
-	this->numericUpDown1->Value = servings(row);
-	serves = (float) servings(row);
-	for (int x = 0; x < 30; x++) amount[x] = 0;
+	
 }
 private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) {
 
 }
 private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-
-	double ratio;
-	int newserve = 0;
-	int x = 0;
-	if (serves > 0)
+	
+	if (activeRecipe != NULL) // there is a current active recipe
 	{
-		ratio = (float) this->numericUpDown1->Value / serves;
-		for (int x = 0; ; x++)
+		double ratio;
+		int newserve = 0;
+		int x = 0;
+		if (serves > 0)
 		{
-			if (this->ingredients->Rows[x]->Cells[1]->Value == "") break;
-			if (amount[x] == 0) amount[x] = Convert::ToDouble(this->ingredients->Rows[x]->Cells[1]->Value);
-			amount[x] = amount[x] * ratio;
-			this->ingredients->Rows[x]->Cells[1]->Value = (int)(amount[x]);
+			ratio = (float) this->numericUpDown1->Value / serves;
+			for (int x = 0; x < activeRecipe->ingredientCount; x++)
+			{
+				if (this->ingredients->Rows[x]->Cells[1]->Value == "") continue;
+				if (amount[x] == 0) amount[x] = Convert::ToDouble(this->ingredients->Rows[x]->Cells[1]->Value);
+				amount[x] = amount[x] * ratio;
+				this->ingredients->Rows[x]->Cells[1]->Value = (int)(amount[x]);
 
+			}
+			serves = (int) this->numericUpDown1->Value;
 		}
-		serves = (int) this->numericUpDown1->Value;
 	}
 }
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -412,9 +465,33 @@ private: System::Void button1_Click(System::Object^  sender, System::EventArgs^ 
 	saveRecipes();
 }
 private: System::Void Reset(System::Object^  sender, System::EventArgs^  e) {
-	for (int x = 0; x < recipeQuantity; ++x) this->recipes->Rows[x]->Cells[0]->Value = recipeName(x);
+	repopulateRecipeList();
 }
 
+private: void repopulateRecipeList()
+{
+	std::string searchStr = systemStrToStdStr(textBox1->Text);	//convert
+
+	std::vector<recipe*> relevantRecipes = findRecipesContaining(searchStr);
+
+	for (int x = 0; x < recipeQuantity; ++x)
+	{
+		recipes->Rows[x]->Cells[0]->Value = "";
+	}
+	int count = 0;
+	for (std::vector<recipe*>::iterator i = relevantRecipes.begin(); i != relevantRecipes.end(); ++i)
+	{
+		recipes->Rows[count++]->Cells[0]->Value = recipeName((*i)->recipeNumber);
+	}
+}
+
+private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	repopulateRecipeList();
+
+
+
+}
 };
 
 };

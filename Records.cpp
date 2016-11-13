@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctype.h>
 #include <algorithm>
 #include "MyForm.h"
 
@@ -17,12 +18,16 @@ int	recipeQuantity;		//number of recipes
 int	totalIngredients;	//number of total ingredients of all recipes
 int	totalprocedures;	//number of total procedures of all recipes
 double serves;			// number of servings
-double amount[30];		// allows modification of servings
+double amount[30];		// allows modification of servings 
+
 
 
 recipe *recipes, *firstRecipe, *lastRecipe;  //I use only the first two each
 ingredients *item, *firstItem, *lastItem;	 //  don't move first of any item
 procedures *task, *firstTask, *lastTask;
+
+std::vector<recipe*> lastSearchedRecipeContainer;
+recipe* activeRecipe = NULL;	// current recipe
 //********************************************************************************************
 //							 Pass Recipe Name (a system string is returned--not std lib) 
 //********************************************************************************************
@@ -32,6 +37,44 @@ String^ recipeName(int index)  //passes recipe name string when given index
 	for (int x = 0; x < index; ++x) recipes = recipes->nextRecipe;
 	return gcnew String(recipes->title.c_str());
 }
+std::string stringToLower(std::string str)
+{
+	std::string result;
+
+	for (int i = 0; i < str.length(); ++i)
+	{
+		result += ::tolower(str[i]);
+	}
+	return result;
+
+}
+
+std::vector<recipe*> findRecipesContaining(std::string str)
+{
+	str = stringToLower(str);
+	std::vector<recipe*> result;
+	recipe* r = firstRecipe;
+	for (int i = 0; i < recipeQuantity; ++i)
+	{
+		std::string title = stringToLower(r->title);
+		if (str.length() < 1 || title.find(str) != std::string::npos) // substring found or no search param
+		{
+			result.push_back(r);
+		}
+		r = r->nextRecipe;
+	}
+	lastSearchedRecipeContainer = result;
+	return lastSearchedRecipeContainer;
+}
+
+
+std::string systemStrToStdStr(System::String^ sStr)
+{
+	char cstring[500] = { 0 };
+	sprintf_s(cstring, "%s", sStr);
+	return std::string(cstring);
+}
+
 //********************************************************************************************
 //							 Pass proceedure Name  (very little error handling)
 //********************************************************************************************
@@ -265,6 +308,8 @@ bool loadRecipes(void)
 		lastRecipe->nextRecipe = recipes;
 	}
 	infile.close();
+
+	findRecipesContaining(""); // build base list
 	return true;	//loaded recipes without error
 }
 
