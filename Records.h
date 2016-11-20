@@ -58,7 +58,7 @@ double  recipeIngredientQuantity(int, int);
 String^ recipeIngredientTyp(int, int);
 std::vector<recipe*> findRecipesContaining(std::string);	// find recipes containing string in title
 std::string systemStrToStdStr(System::String^);				// convert system str -> std str
-
+std::string getNearestCommonFraction(double decimal);
 
 //*****************************************************************************
 //								ingredients

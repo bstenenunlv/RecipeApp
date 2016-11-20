@@ -67,6 +67,84 @@ std::vector<recipe*> findRecipesContaining(std::string str)
 	return lastSearchedRecipeContainer;
 }
 
+std::string getNearestCommonFraction(double decimal)
+{
+	std::string result = "";
+
+	int whole = (int)decimal;
+	double remainder = 0;
+	if (whole > 0)
+		remainder = decimal - whole;
+
+	if (whole > 0)
+		result = std::to_string(whole);
+
+	/*
+	1/16	0.0625
+	1/8		0.125
+	1/6		0.1667
+	3/16	0.1875
+	1/4		0.25
+	5/16	0.3125
+	1/3		0.3333
+	3/8		0.375
+	7/16	0.4375
+	1/2		0.5
+	9/16	0.5625
+	5/8		0.625
+	2/3		0.667
+	11/16	0.6875
+	3/4		0.75
+	13/16	0.8125
+	5/6		0.833
+	7/8		0.875
+	15/16	0.9375
+	*/
+	if (remainder > 0)
+	{
+		result += " "; // buffer space
+
+		if (remainder < (1.0 / 16.0))
+			result += "1/16";
+		else if (remainder < (1.0 / 8.0))
+			result += "1/8";
+		else if (remainder < (1.0 / 6.0))
+			result += "1/6";
+		else if (remainder < (3.0/ 16.0))
+			result += "3/16";
+		else if (remainder < (1.0 / 4.0))
+			result += "1/4";
+		else if (remainder < (5.0 / 16.0))
+			result += "5/16";
+		else if (remainder < (1.0 / 3.0))
+			result += "1/3";
+		else if (remainder < (3.0 / 8.0))
+			result += "3/8";
+		else if (remainder < (7.0 / 16.0))
+			result += "7/16";
+		else if (remainder < (1.0 / 2.0))
+			result += "1/2";
+		else if (remainder < (9.0 / 16.0))
+			result += "9/16";
+		else if (remainder < (5.0 / 8.0))
+			result += "5/8";
+		else if (remainder < (2.0 / 3.0))
+			result += "2/3";
+		else if (remainder < (11.0 / 16.0))
+			result += "11/16";
+		else if (remainder < (3.0 / 4.0))
+			result += "3/4";
+		else if (remainder < (13.0 / 16.0))
+			result += "13/16";
+		else if (remainder < (5.0 / 6.0))
+			result += "5/6";
+		else if (remainder < (7.0 / 8.0))
+			result += "7/8";
+		else
+			result += "15/16";
+	}
+	return result;
+}
 
 std::string systemStrToStdStr(System::String^ sStr)
 {

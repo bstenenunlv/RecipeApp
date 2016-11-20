@@ -438,6 +438,9 @@ private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Wi
 }
 private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	
+	if (this->numericUpDown1->Value < 1)
+		this->numericUpDown1->Value = 1;	//lock to >=1
+
 	if (activeRecipe != NULL) // there is a current active recipe
 	{
 		double ratio;
@@ -451,7 +454,7 @@ private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, Syste
 				if (this->ingredients->Rows[x]->Cells[1]->Value == "") continue;
 				if (amount[x] == 0) amount[x] = Convert::ToDouble(this->ingredients->Rows[x]->Cells[1]->Value);
 				amount[x] = amount[x] * ratio;
-				this->ingredients->Rows[x]->Cells[1]->Value = (int)(amount[x]);
+				this->ingredients->Rows[x]->Cells[1]->Value = amount[x]; //gcnew String(getNearestCommonFraction(amount[x]).c_str());
 
 			}
 			serves = (int) this->numericUpDown1->Value;
