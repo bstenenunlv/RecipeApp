@@ -64,9 +64,9 @@ namespace Project_Recipe {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Recipe;
 
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Ingredient;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Amount;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Type;
+
+
+
 
 	private: System::Windows::Forms::Label^  currentRecipe;
 	private: System::Windows::Forms::Label^  label2;
@@ -77,6 +77,12 @@ namespace Project_Recipe {
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Ingredient;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Amount;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Type;
+
+
+
 
 
 
@@ -101,10 +107,8 @@ namespace Project_Recipe {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->ingredients = (gcnew System::Windows::Forms::DataGridView());
-			this->Ingredient = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->procedures = (gcnew System::Windows::Forms::DataGridView());
 			this->Procedure = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->recipes = (gcnew System::Windows::Forms::DataGridView());
@@ -122,6 +126,9 @@ namespace Project_Recipe {
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->Ingredient = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->recipes))->BeginInit();
@@ -156,27 +163,6 @@ namespace Project_Recipe {
 			this->ingredients->TabIndex = 0;
 			this->ingredients->TabStop = false;
 			this->ingredients->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::ingredients_CellContentClick);
-			// 
-			// Ingredient
-			// 
-			this->Ingredient->HeaderText = L"Ingredient";
-			this->Ingredient->Name = L"Ingredient";
-			this->Ingredient->ReadOnly = true;
-			this->Ingredient->Width = 200;
-			// 
-			// Amount
-			// 
-			this->Amount->HeaderText = L"Qty";
-			this->Amount->Name = L"Amount";
-			this->Amount->ReadOnly = true;
-			this->Amount->Width = 35;
-			// 
-			// Type
-			// 
-			this->Type->HeaderText = L"Type";
-			this->Type->MinimumWidth = 100;
-			this->Type->Name = L"Type";
-			this->Type->ReadOnly = true;
 			// 
 			// procedures
 			// 
@@ -358,6 +344,29 @@ namespace Project_Recipe {
 			this->groupBox2->TabIndex = 13;
 			this->groupBox2->TabStop = false;
 			// 
+			// Ingredient
+			// 
+			this->Ingredient->HeaderText = L"Ingredient";
+			this->Ingredient->Name = L"Ingredient";
+			this->Ingredient->ReadOnly = true;
+			this->Ingredient->Width = 160;
+			// 
+			// Amount
+			// 
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::TopRight;
+			this->Amount->DefaultCellStyle = dataGridViewCellStyle1;
+			this->Amount->HeaderText = L"Qty";
+			this->Amount->Name = L"Amount";
+			this->Amount->ReadOnly = true;
+			this->Amount->Width = 75;
+			// 
+			// Type
+			// 
+			this->Type->HeaderText = L"Type";
+			this->Type->MinimumWidth = 100;
+			this->Type->Name = L"Type";
+			this->Type->ReadOnly = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
@@ -462,7 +471,9 @@ private: void setActiveRecipe(recipe* r)
 		for (int x = 0; x < activeRecipe->ingredientCount; ++x)
 		{
 			this->ingredients->Rows[x]->Cells[0]->Value = recipeIngredient(activeRecipe->recipeNumber, x);
-			this->ingredients->Rows[x]->Cells[1]->Value = recipeIngredientQuantity(activeRecipe->recipeNumber, x);
+			double decimalQuantity = recipeIngredientQuantity(activeRecipe->recipeNumber, x);
+			std::string fractionalQuantity = getNearestCommonFraction(decimalQuantity);
+			this->ingredients->Rows[x]->Cells[1]->Value = gcnew String(fractionalQuantity.c_str());
 			this->ingredients->Rows[x]->Cells[2]->Value = recipeIngredientTyp(activeRecipe->recipeNumber, x);
 		}
 		for (int x = 0; x < activeRecipe->ProcedureCount; ++x)
@@ -528,9 +539,14 @@ private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, Syste
 			for (int x = 0; x < activeRecipe->ingredientCount; x++)
 			{
 				if (this->ingredients->Rows[x]->Cells[1]->Value == "") continue;
-				if (amount[x] == 0) amount[x] = Convert::ToDouble(this->ingredients->Rows[x]->Cells[1]->Value);
+				if (amount[x] == 0)
+				{
+					std::string val = systemStrToStdStr(Convert::ToString(this->ingredients->Rows[x]->Cells[1]->Value));
+					amount[x] = fractionalStringToDouble(val);
+				}
+					
 				amount[x] = amount[x] * ratio;
-				this->ingredients->Rows[x]->Cells[1]->Value = amount[x]; //gcnew String(getNearestCommonFraction(amount[x]).c_str());
+				this->ingredients->Rows[x]->Cells[1]->Value = gcnew String(getNearestCommonFraction(amount[x]).c_str());
 
 			}
 			serves = (int) this->numericUpDown1->Value;

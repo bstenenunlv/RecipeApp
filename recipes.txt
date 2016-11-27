@@ -16,7 +16,7 @@ Cerial
 serves 1
 Fruit_loops 1 cups
 salt 0 to_taste
-Milk 14 cups
+Milk 14.333 cups
 end
 Marry door to door salesperson
 Spank nearest relative

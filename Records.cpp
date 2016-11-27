@@ -50,6 +50,48 @@ std::string stringToLower(std::string str)
 
 }
 
+//splits a string
+std::vector<std::string> stringSplit(const std::string &text, char delimiter) {
+	std::vector<std::string> tokens;
+	std::size_t start = 0, end = 0;
+	while ((end = text.find(delimiter, start)) != std::string::npos) {
+		tokens.push_back(text.substr(start, end - start));
+		start = end + 1;
+	}
+	tokens.push_back(text.substr(start));
+	return tokens;
+}
+
+double fractionalStringToDouble(const std::string &str)
+{
+	typedef std::vector<std::string> StringContainer;
+	StringContainer spaceSplit = stringSplit(str, ' ');
+	
+	if (spaceSplit.size() == 1)	// either a whole or fraction alone
+	{
+		StringContainer slashSplit = stringSplit(spaceSplit[0], '/');
+		if (slashSplit.size() == 1) // whole number
+		{
+			return atof(spaceSplit[0].c_str());
+		}
+		else //fraction
+		{
+			double numerator = atof(slashSplit[0].c_str());
+			double denominator = atof(slashSplit[1].c_str());
+			return numerator / denominator;
+		}
+	}
+	else  // mixed number
+	{
+		StringContainer slashSplit = stringSplit(spaceSplit[1], '/');
+		double whole = atof(spaceSplit[0].c_str());
+		double numerator = atof(slashSplit[0].c_str());
+		double denominator = atof(slashSplit[1].c_str());
+		return whole + (numerator / denominator);
+	}
+}
+
+
 std::vector<recipe*> findRecipesContaining(std::string str)
 {
 	str = stringToLower(str);
@@ -103,6 +145,7 @@ std::string getNearestCommonFraction(double decimal)
 	*/
 	if (remainder > 0)
 	{
+		remainder -= (0.00001); // so its less
 		result += " "; // buffer space
 
 		if (remainder < (1.0 / 16.0))
