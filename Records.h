@@ -41,6 +41,8 @@ extern double serves;
 extern double amount[30];
 extern std::vector<recipe*> lastSearchedRecipeContainer;
 extern recipe* activeRecipe;
+extern std::string oldSearchString; //for search uses
+extern recipe* previousActiveRecipe;
 
 //*****************************************************************************
 //								Declarations

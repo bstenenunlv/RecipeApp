@@ -20,7 +20,7 @@ int	totalprocedures;	//number of total procedures of all recipes
 double serves;			// number of servings
 double amount[30];		// allows modification of servings 
 
-
+std::string oldSearchString = ""; //for search uses
 
 recipe *recipes, *firstRecipe, *lastRecipe;  //I use only the first two each
 ingredients *item, *firstItem, *lastItem;	 //  don't move first of any item
@@ -28,6 +28,7 @@ procedures *task, *firstTask, *lastTask;
 
 std::vector<recipe*> lastSearchedRecipeContainer;
 recipe* activeRecipe = NULL;	// current recipe
+recipe* previousActiveRecipe = NULL;
 //********************************************************************************************
 //							 Pass Recipe Name (a system string is returned--not std lib) 
 //********************************************************************************************

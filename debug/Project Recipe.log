@@ -1,9 +1,9 @@
 ﻿  MyForm.cpp
-c:\users\sentou\desktop\github\recipe3\recipeapp\MyForm.h(464): warning C4018: '>=': signed/unsigned mismatch
+c:\users\sentou\desktop\github\recipe3\recipeapp\MyForm.h(492): warning C4018: '>=': signed/unsigned mismatch
   Records.cpp
-c:\users\sentou\desktop\github\recipe3\recipeapp\MyForm.h(464): warning C4018: '>=': signed/unsigned mismatch
-Records.cpp(44): warning C4018: '<': signed/unsigned mismatch
-Records.cpp(152): warning C4477: 'sprintf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'System::String ^'
+c:\users\sentou\desktop\github\recipe3\recipeapp\MyForm.h(492): warning C4018: '>=': signed/unsigned mismatch
+Records.cpp(45): warning C4018: '<': signed/unsigned mismatch
+Records.cpp(153): warning C4477: 'sprintf_s' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'System::String ^'
   Generating Code...
   Project Recipe.vcxproj -> C:\Users\Sentou\Desktop\GitHub\recipe3\RecipeApp\Debug\Project Recipe.exe
   Project Recipe.vcxproj -> C:\Users\Sentou\Desktop\GitHub\recipe3\RecipeApp\Debug\Project Recipe.pdb (Full PDB)

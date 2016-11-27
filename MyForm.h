@@ -75,6 +75,8 @@ namespace Project_Recipe {
 	private: System::Windows::Forms::ToolStripMenuItem^  addRecipeToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  saveToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::GroupBox^  groupBox2;
 
 
 
@@ -118,12 +120,16 @@ namespace Project_Recipe {
 			this->addRecipeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->recipes))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->menuStrip1->SuspendLayout();
+			this->groupBox1->SuspendLayout();
+			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// ingredients
@@ -213,7 +219,7 @@ namespace Project_Recipe {
 			this->recipes->CellBorderStyle = System::Windows::Forms::DataGridViewCellBorderStyle::Raised;
 			this->recipes->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->recipes->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Recipe });
-			this->recipes->Location = System::Drawing::Point(14, 146);
+			this->recipes->Location = System::Drawing::Point(15, 83);
 			this->recipes->Name = L"recipes";
 			this->recipes->ReadOnly = true;
 			this->recipes->RowHeadersWidth = 10;
@@ -235,7 +241,7 @@ namespace Project_Recipe {
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(132, 75);
+			this->numericUpDown1->Location = System::Drawing::Point(88, 19);
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->Size = System::Drawing::Size(68, 26);
 			this->numericUpDown1->TabIndex = 3;
@@ -244,7 +250,7 @@ namespace Project_Recipe {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(22, 83);
+			this->label1->Location = System::Drawing::Point(14, 23);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(69, 18);
 			this->label1->TabIndex = 4;
@@ -253,9 +259,9 @@ namespace Project_Recipe {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(132, 114);
+			this->textBox1->Location = System::Drawing::Point(88, 51);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(160, 26);
+			this->textBox1->Size = System::Drawing::Size(189, 26);
 			this->textBox1->TabIndex = 6;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
@@ -274,7 +280,7 @@ namespace Project_Recipe {
 			// currentRecipe
 			// 
 			this->currentRecipe->AutoSize = true;
-			this->currentRecipe->Location = System::Drawing::Point(626, 54);
+			this->currentRecipe->Location = System::Drawing::Point(283, 19);
 			this->currentRecipe->Name = L"currentRecipe";
 			this->currentRecipe->Size = System::Drawing::Size(158, 18);
 			this->currentRecipe->TabIndex = 10;
@@ -283,7 +289,7 @@ namespace Project_Recipe {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(22, 114);
+			this->label2->Location = System::Drawing::Point(14, 55);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(58, 18);
 			this->label2->TabIndex = 7;
@@ -312,23 +318,45 @@ namespace Project_Recipe {
 			// addRecipeToolStripMenuItem
 			// 
 			this->addRecipeToolStripMenuItem->Name = L"addRecipeToolStripMenuItem";
-			this->addRecipeToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->addRecipeToolStripMenuItem->Size = System::Drawing::Size(134, 22);
 			this->addRecipeToolStripMenuItem->Text = L"Add Recipe";
 			this->addRecipeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::addRecipeToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-			this->saveToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->saveToolStripMenuItem->Size = System::Drawing::Size(134, 22);
 			this->saveToolStripMenuItem->Text = L"Save";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::saveToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
-			this->exitToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->exitToolStripMenuItem->Size = System::Drawing::Size(134, 22);
 			this->exitToolStripMenuItem->Text = L"Exit";
 			this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::exitToolStripMenuItem_Click);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->numericUpDown1);
+			this->groupBox1->Controls->Add(this->recipes);
+			this->groupBox1->Controls->Add(this->label1);
+			this->groupBox1->Controls->Add(this->label2);
+			this->groupBox1->Controls->Add(this->textBox1);
+			this->groupBox1->Location = System::Drawing::Point(0, 43);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(303, 245);
+			this->groupBox1->TabIndex = 12;
+			this->groupBox1->TabStop = false;
+			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->currentRecipe);
+			this->groupBox2->Location = System::Drawing::Point(337, 43);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(754, 464);
+			this->groupBox2->TabIndex = 13;
+			this->groupBox2->TabStop = false;
 			// 
 			// MyForm
 			// 
@@ -336,16 +364,12 @@ namespace Project_Recipe {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(1082, 499);
-			this->Controls->Add(this->currentRecipe);
 			this->Controls->Add(this->pictureBox1);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->textBox1);
-			this->Controls->Add(this->label1);
-			this->Controls->Add(this->numericUpDown1);
-			this->Controls->Add(this->recipes);
 			this->Controls->Add(this->procedures);
 			this->Controls->Add(this->ingredients);
 			this->Controls->Add(this->menuStrip1);
+			this->Controls->Add(this->groupBox1);
+			this->Controls->Add(this->groupBox2);
 			this->Font = (gcnew System::Drawing::Font(L"Arial", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Fixed3D;
@@ -360,7 +384,7 @@ namespace Project_Recipe {
 			this->ShowInTaskbar = false;
 			this->Text = L"                                                                                 "
 				L"                                                                                "
-				L"       Group Recipes";
+				L"       Just Cook";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->EndInit();
@@ -369,6 +393,10 @@ namespace Project_Recipe {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -411,20 +439,20 @@ private: System::Void pictureBox1_Click_2(System::Object^  sender, System::Event
 private: void setActiveRecipe(recipe* r)
 {
 	repopulateRecipeList();
-	recipe* lastRecipe = activeRecipe;
+	previousActiveRecipe = activeRecipe;
 	activeRecipe = r;
 
 
-	if (lastRecipe != NULL) // there was a last
+	if (previousActiveRecipe != NULL) // there was a last
 	{
 
-		for (int x = 0; x < lastRecipe->ingredientCount; ++x)
+		for (int x = 0; x < previousActiveRecipe->ingredientCount; ++x)
 		{
 			this->ingredients->Rows[x]->Cells[0]->Value = "";
 			this->ingredients->Rows[x]->Cells[1]->Value = "";
 			this->ingredients->Rows[x]->Cells[2]->Value = "";
 		}
-		for (int i = 0; i < lastRecipe->ProcedureCount; ++i)
+		for (int i = 0; i < previousActiveRecipe->ProcedureCount; ++i)
 		{
 			this->procedures->Rows[i]->Cells[0]->Value = "";
 		}
@@ -473,6 +501,11 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
 		currentRecipe->Text = gcnew System::String(text.c_str());
 	}
 
+	if (previousActiveRecipe != activeRecipe) // new recipe
+	{
+		procedures->ClearSelection();
+		ingredients->ClearSelection();
+	}
 
 	
 }
@@ -513,6 +546,15 @@ private: void repopulateRecipeList()
 	std::string searchStr = systemStrToStdStr(textBox1->Text);	//convert
 
 	std::vector<recipe*> relevantRecipes = findRecipesContaining(searchStr);
+
+
+	if (oldSearchString != searchStr) // altered string
+		recipes->ClearSelection();
+
+	oldSearchString = searchStr;
+
+
+
 
 	for (int x = 0; x < recipeQuantity; ++x)
 	{
