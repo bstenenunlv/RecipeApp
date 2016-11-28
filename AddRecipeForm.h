@@ -80,13 +80,17 @@ namespace Project_Recipe {
 	private: System::Windows::Forms::TextBox^  recipeName;
 
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
+
+
+
+	private: System::Windows::Forms::DataGridView^  dataGridView2;
+
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Name;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Amount;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Unit;
-	private: System::Windows::Forms::DataGridView^  dataGridView2;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Step;
-	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::Button^  button2;
 
 
 
@@ -113,13 +117,13 @@ namespace Project_Recipe {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->recipeName = (gcnew System::Windows::Forms::TextBox());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->Name = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Unit = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
 			this->Step = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
@@ -172,21 +176,6 @@ namespace Project_Recipe {
 			this->dataGridView1->Size = System::Drawing::Size(304, 376);
 			this->dataGridView1->TabIndex = 5;
 			// 
-			// Name
-			// 
-			this->Name->HeaderText = L"Name";
-			this->Name->Name = L"Name";
-			// 
-			// Amount
-			// 
-			this->Amount->HeaderText = L"Amount";
-			this->Amount->Name = L"Amount";
-			// 
-			// Unit
-			// 
-			this->Unit->HeaderText = L"Unit";
-			this->Unit->Name = L"Unit";
-			// 
 			// dataGridView2
 			// 
 			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
@@ -194,13 +183,10 @@ namespace Project_Recipe {
 			this->dataGridView2->Location = System::Drawing::Point(322, 74);
 			this->dataGridView2->Name = L"dataGridView2";
 			this->dataGridView2->RowHeadersVisible = false;
+			this->dataGridView2->RowHeadersWidth = 120;
 			this->dataGridView2->Size = System::Drawing::Size(332, 376);
 			this->dataGridView2->TabIndex = 6;
-			// 
-			// Step
-			// 
-			this->Step->HeaderText = L"Step";
-			this->Step->Name = L"Step";
+			this->dataGridView2->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &AddRecipeForm::dataGridView2_CellContentClick);
 			// 
 			// button1
 			// 
@@ -222,6 +208,28 @@ namespace Project_Recipe {
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &AddRecipeForm::button2_Click);
 			// 
+			// Name
+			// 
+			this->Name->HeaderText = L"Name";
+			this->Name->Name = L"Name";
+			this->Name->Width = 130;
+			// 
+			// Amount
+			// 
+			this->Amount->HeaderText = L"Amount";
+			this->Amount->Name = L"Amount";
+			// 
+			// Unit
+			// 
+			this->Unit->HeaderText = L"Unit";
+			this->Unit->Name = L"Unit";
+			// 
+			// Step
+			// 
+			this->Step->HeaderText = L"Step";
+			this->Step->Name = L"Step";
+			this->Step->Width = 330;
+			// 
 			// AddRecipeForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -229,12 +237,13 @@ namespace Project_Recipe {
 			this->ClientSize = System::Drawing::Size(666, 462);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
-			this->Controls->Add(this->dataGridView2);
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->recipeName);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label1);
+			this->Controls->Add(this->dataGridView2);
+			//this->Name = L"AddRecipeForm";
 			this->Text = L"AddRecipeForm";
 			this->Leave += gcnew System::EventHandler(this, &AddRecipeForm::Reset);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
@@ -253,6 +262,8 @@ private: System::Void Reset(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 	Close();
+}
+private: System::Void dataGridView2_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
 }
 };
 
