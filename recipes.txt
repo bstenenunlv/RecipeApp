@@ -1,44 +1,94 @@
 Group Recipes
-4
-Freaky Fries
-serves 2
-potato 1 quantity
-wax 1 cups
-end
-Cut potato with dentures missing teeth.
-Melt wax
-Fry fries
-Stick fries in wax
-Slap nearest baker
-Marry some forest Creature
-end
-Cerial
-serves 1
-Fruit_loops 1 cups
-salt 0 to_taste
-Milk 14.333 cups
-end
-Marry door to door salesperson
-Spank nearest relative
-walk off a cliff
-end
-Stone Soup
+6
+Homestyle Chicken & Biscuits
 serves 4
-water 4 cups
-stone 2 quantity
-salt 0 to_taste
+Campbell's_Cream_of_Chicken_soup 1 quantity
+Milk 1 Cups
+Shredded_Cheddar_Cheese 1 Cups
+Broccoli 3 Cups
+Carrots 3 Cups
+Biscuits 10 Quantity
 end
-Stir the water vigorously.
-Pet the stones until really hard.
-Salt only when water comes to a boil.
+Heat Oven 400f
+Bake 15 minutes
+Top Mixture with Biscuits
+Bake 15 minutes
+end
+Oatmeal with Honey
+serves 1
+Whole_Flake_Oatmeal 1 Cups
+Water 2 Cups
+Milk 1.25 Cups
+Honey 3 Tea_Spoons
+end
+Boil 2 cups water
+Add oats when boiling
+Cook for 15 minutes medium heat
+Pour into bowl
+Add honey to taste
+Add milk
+end
+Chicken Orzo Skillet
+serves 4
+Olive_Oil 1 Tablespoon
+Oregano 1 Teaspoon
+Garlic_Power 1 Dash
+Lemon_peel 1 Teaspoon
+Chicken_breasts 4 Quantity
+Orzo_Pasta 1.25 Cups
+Green_Olives 6 Ounces
+Garlic 4 Cloves
+Feta_Cheeze 1 Cups
+end
+Heat Oil in skillet over medium heat
+Add soup and chicken cook ten minutes
+Sprinkle Cheese
+Heat to boil
+Reduce heat to low
+Cover and cook five minutes
 end
 Peanut Butter Sandwich
 serves 1
-bread 2 quantity
-peanut_butter 0 to_taste
+bread 2 Quantity
+peanut_butter 2 Tablespoons
 end
-Toast the bread to taste.
-Pre-smear the Peanut butter on wax paper.
-Place toast on wax paper (peanut butter side).
-Cross-cut the sandwich and make offering to Val.
+Toast the bread
+Apply peanut butter
+Cross-cut the sandwich
 end
+All-in-One Burger Stew
+serves 6
+Ground_beef 1 Pound
+Vegetables_Frozen 2 Cups
+Diced_Tomatoes 1 Can
+Beef_broth 1 Can
+Egg_noodles 2.5 Cups
+Salt 0 To_taste
+Pepper 0 To_Taste
+end
+Part beef to perferred shape and size
+Brown beef for six to eight minutes
+Drain fat
+Add vegetables, tomatoes and broth
+Bring to a boil
+Add noodles and reduce to medium heat
+Cover and cook for ten to fifteen minutes
+end
+Pork Chop Skillet Dinner
+serves 4
+Olive_oil 1 tablespoon
+Pork_Chops 4 Quantity
+Onion 1 Quantity
+Long_Grain_Rice 1 Cups
+Chicken_Broth 1 Can
+Orange_Juice 1 Cups
+end
+Heat the oil and add pork
+Cook until well browned
+Add chopped onion and rice
+Stir in broth, Orange juice
+Add parsely
+Cover and cook for twenty minutes
+Top with orange slices and sprinkle parsley
+end
+

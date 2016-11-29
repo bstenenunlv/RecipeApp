@@ -123,6 +123,8 @@ namespace Project_Recipe {
 
 
 
+
+
 	protected:
 
 	protected:
@@ -145,17 +147,22 @@ namespace Project_Recipe {
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle9 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle10 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->ingredients = (gcnew System::Windows::Forms::DataGridView());
+			this->Ingredient = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->procedures = (gcnew System::Windows::Forms::DataGridView());
+			this->Procedure = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->recipes = (gcnew System::Windows::Forms::DataGridView());
+			this->Recipe = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -169,11 +176,6 @@ namespace Project_Recipe {
 			this->exitToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->Procedure = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Ingredient = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Amount = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Recipe = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ingredients))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->procedures))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->recipes))->BeginInit();
@@ -233,6 +235,43 @@ namespace Project_Recipe {
 			this->ingredients->TabStop = false;
 			this->ingredients->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::ingredients_CellContentClick);
 			// 
+			// Ingredient
+			// 
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::Color::Black;
+			this->Ingredient->DefaultCellStyle = dataGridViewCellStyle2;
+			this->Ingredient->HeaderText = L"Ingredient";
+			this->Ingredient->Name = L"Ingredient";
+			this->Ingredient->ReadOnly = true;
+			this->Ingredient->Width = 160;
+			// 
+			// Amount
+			// 
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::TopRight;
+			dataGridViewCellStyle3->BackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::Color::Black;
+			this->Amount->DefaultCellStyle = dataGridViewCellStyle3;
+			this->Amount->HeaderText = L"Qty";
+			this->Amount->Name = L"Amount";
+			this->Amount->ReadOnly = true;
+			this->Amount->Width = 75;
+			// 
+			// Type
+			// 
+			dataGridViewCellStyle4->BackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::Color::Black;
+			this->Type->DefaultCellStyle = dataGridViewCellStyle4;
+			this->Type->HeaderText = L"Type";
+			this->Type->MinimumWidth = 100;
+			this->Type->Name = L"Type";
+			this->Type->ReadOnly = true;
+			// 
 			// procedures
 			// 
 			this->procedures->AllowUserToAddRows = false;
@@ -262,6 +301,20 @@ namespace Project_Recipe {
 			this->procedures->Size = System::Drawing::Size(361, 391);
 			this->procedures->TabIndex = 1;
 			this->procedures->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::procedures_CellContentClick);
+			// 
+			// Procedure
+			// 
+			dataGridViewCellStyle8->BackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle8->SelectionBackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle8->SelectionForeColor = System::Drawing::Color::Black;
+			this->Procedure->DefaultCellStyle = dataGridViewCellStyle8;
+			this->Procedure->HeaderText = L"Procedure";
+			this->Procedure->MinimumWidth = 350;
+			this->Procedure->Name = L"Procedure";
+			this->Procedure->ReadOnly = true;
+			this->Procedure->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->Procedure->Width = 350;
 			// 
 			// recipes
 			// 
@@ -297,6 +350,18 @@ namespace Project_Recipe {
 			this->recipes->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::recipes_CellContentClick);
 			this->recipes->CellMouseClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MyForm::recipes_CellMouseClick);
 			this->recipes->Validated += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
+			// 
+			// Recipe
+			// 
+			dataGridViewCellStyle10->BackColor = System::Drawing::Color::LightGray;
+			dataGridViewCellStyle10->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::Color::White;
+			this->Recipe->DefaultCellStyle = dataGridViewCellStyle10;
+			this->Recipe->HeaderText = L"                 Recipes";
+			this->Recipe->Name = L"Recipe";
+			this->Recipe->ReadOnly = true;
+			this->Recipe->Width = 250;
 			// 
 			// numericUpDown1
 			// 
@@ -416,69 +481,6 @@ namespace Project_Recipe {
 			this->groupBox2->TabIndex = 13;
 			this->groupBox2->TabStop = false;
 			// 
-			// Procedure
-			// 
-			dataGridViewCellStyle8->BackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle8->SelectionBackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle8->SelectionForeColor = System::Drawing::Color::Black;
-			this->Procedure->DefaultCellStyle = dataGridViewCellStyle8;
-			this->Procedure->HeaderText = L"Procedure";
-			this->Procedure->MinimumWidth = 350;
-			this->Procedure->Name = L"Procedure";
-			this->Procedure->ReadOnly = true;
-			this->Procedure->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			this->Procedure->Width = 350;
-			// 
-			// Ingredient
-			// 
-			dataGridViewCellStyle2->BackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::Color::Black;
-			this->Ingredient->DefaultCellStyle = dataGridViewCellStyle2;
-			this->Ingredient->HeaderText = L"Ingredient";
-			this->Ingredient->Name = L"Ingredient";
-			this->Ingredient->ReadOnly = true;
-			this->Ingredient->Width = 160;
-			// 
-			// Amount
-			// 
-			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::TopRight;
-			dataGridViewCellStyle3->BackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::Color::Black;
-			this->Amount->DefaultCellStyle = dataGridViewCellStyle3;
-			this->Amount->HeaderText = L"Qty";
-			this->Amount->Name = L"Amount";
-			this->Amount->ReadOnly = true;
-			this->Amount->Width = 75;
-			// 
-			// Type
-			// 
-			dataGridViewCellStyle4->BackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle4->SelectionBackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle4->SelectionForeColor = System::Drawing::Color::Black;
-			this->Type->DefaultCellStyle = dataGridViewCellStyle4;
-			this->Type->HeaderText = L"Type";
-			this->Type->MinimumWidth = 100;
-			this->Type->Name = L"Type";
-			this->Type->ReadOnly = true;
-			// 
-			// Recipe
-			// 
-			dataGridViewCellStyle10->BackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle10->ForeColor = System::Drawing::Color::Black;
-			dataGridViewCellStyle10->SelectionBackColor = System::Drawing::Color::LightGray;
-			dataGridViewCellStyle10->SelectionForeColor = System::Drawing::Color::Black;
-			this->Recipe->DefaultCellStyle = dataGridViewCellStyle10;
-			this->Recipe->HeaderText = L"                 Recipes";
-			this->Recipe->Name = L"Recipe";
-			this->Recipe->ReadOnly = true;
-			this->Recipe->Width = 250;
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
@@ -524,10 +526,8 @@ namespace Project_Recipe {
 
 		}
 #pragma endregion
-	private: System::Void pictureBox1_Click(System::Object^  sender, System::EventArgs^  e) {
-	}
-	private: System::Void pictureBox1_Click_1(System::Object^  sender, System::EventArgs^  e) {
-	}
+
+
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) 
 	{ // This is how I tested the linked list items.  *Bromley*
 
