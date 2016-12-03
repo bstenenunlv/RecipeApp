@@ -116,11 +116,14 @@ std::string getNearestCommonFraction(double decimal)
 
 	int whole = (int)decimal;
 	double remainder = 0;
-	if (whole > 0)
-		remainder = decimal - whole;
+	remainder = decimal - whole;
 
 	if (whole > 0)
+	{
 		result = std::to_string(whole);
+		if (remainder > 0)
+			result += " ";
+	}
 
 	/*
 	1/16	0.0625
@@ -146,7 +149,6 @@ std::string getNearestCommonFraction(double decimal)
 	if (remainder > 0)
 	{
 		remainder -= (0.00001); // so its less
-		result += " "; // buffer space
 
 		if (remainder < (1.0 / 16.0))
 			result += "1/16";
