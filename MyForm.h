@@ -337,8 +337,10 @@ namespace Project_Recipe {
 			this->recipes->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
 			this->recipes->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->recipes->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Recipe });
+			this->recipes->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
 			this->recipes->GridColor = System::Drawing::SystemColors::GradientInactiveCaption;
 			this->recipes->Location = System::Drawing::Point(15, 83);
+			this->recipes->MultiSelect = false;
 			this->recipes->Name = L"recipes";
 			this->recipes->ReadOnly = true;
 			this->recipes->RowHeadersWidth = 10;
@@ -348,7 +350,10 @@ namespace Project_Recipe {
 			this->recipes->TabIndex = 2;
 			this->recipes->CellClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::recipes_CellContentClick);
 			this->recipes->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::recipes_CellContentClick);
+			this->recipes->CellEnter += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::recipes_CellEnter);
 			this->recipes->CellMouseClick += gcnew System::Windows::Forms::DataGridViewCellMouseEventHandler(this, &MyForm::recipes_CellMouseClick);
+			this->recipes->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::recipes_KeyDown);
+			this->recipes->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::recipes_KeyPress);
 			this->recipes->Validated += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			// 
 			// Recipe
@@ -558,9 +563,13 @@ private: System::Void pictureBox1_Click_2(System::Object^  sender, System::Event
 {
 }
 
-private: void setActiveRecipe(recipe* r)
+private: bool setActiveRecipe(recipe* r)
 {
 	repopulateRecipeList();
+
+	if (activeRecipe == r)
+		return false;
+
 	previousActiveRecipe = activeRecipe;
 	activeRecipe = r;
 
@@ -604,25 +613,30 @@ private: void setActiveRecipe(recipe* r)
 		serves = 0;
 		for (int x = 0; x < 30; x++) amount[x] = 0;
 	}
+	return true;
 }
 
-private: System::Void recipes_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
+private: void handleSelection()
 {
- //********************************************************************************************
- //							Clear the grids of data
- //********************************************************************************************
-	int row = e->RowIndex;
+	//********************************************************************************************
+	//							Clear the grids of data
+	//********************************************************************************************
+
+	int row = currentRowIndex;
+
 
 	if (row >= lastSearchedRecipeContainer.size()) // empty row
 	{
-		setActiveRecipe(NULL);
-		currentRecipe->Text = "Current Recipe: None";
+		if (setActiveRecipe(NULL))
+			currentRecipe->Text = "Current Recipe: None";
 	}
-	else 
+	else
 	{
-		setActiveRecipe(lastSearchedRecipeContainer[row]);
-		std::string text = "Current Recipe: " + activeRecipe->title;
-		currentRecipe->Text = gcnew System::String(text.c_str());
+		if (setActiveRecipe(lastSearchedRecipeContainer[row]))
+		{
+			std::string text = "Current Recipe: " + activeRecipe->title;
+			currentRecipe->Text = gcnew System::String(text.c_str());
+		}
 	}
 
 	if (previousActiveRecipe != activeRecipe) // new recipe
@@ -630,8 +644,12 @@ private: System::Void recipes_CellContentClick(System::Object^  sender, System::
 		procedures->ClearSelection();
 		ingredients->ClearSelection();
 	}
-
-	
+}
+private: int currentRowIndex = 0;
+private: System::Void recipes_CellContentClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
+{
+	currentRowIndex = e->RowIndex;
+	handleSelection();
 }
 private: System::Void recipes_CellMouseClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellMouseEventArgs^  e) {
 
@@ -714,6 +732,27 @@ private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, Syste
 
 	saveRecipes();
 	this->Close();
+}
+private: System::Void recipes_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+
+
+
+	
+
+}
+private: System::Void recipes_CellEnter(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) {
+	currentRowIndex = e->RowIndex;
+}
+private: System::Void recipes_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+
+	if (e->KeyCode == Keys::Enter)	// enter
+	{
+		e->Handled = true;
+		recipes->CurrentCell = recipes->Rows[currentRowIndex]->Cells[0];
+
+		handleSelection();
+	}
+
 }
 };
 
